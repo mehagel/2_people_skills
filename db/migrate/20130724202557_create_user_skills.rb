@@ -5,6 +5,9 @@ class CreateUserSkills < ActiveRecord::Migration
       t.integer :skill_id 
       t.integer :proficency
 
+      t.belongs_to :user
+      t.belongs_to :skill
+
     end
   end
 end
