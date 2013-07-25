@@ -4,5 +4,7 @@ class CreateUserSkills < ActiveRecord::Migration
       t.integer :user_id
       t.integer :skill_id 
 
+      t.timestamp
+    end
   end
 end

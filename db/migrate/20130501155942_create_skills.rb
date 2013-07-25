@@ -5,7 +5,6 @@ class CreateSkills < ActiveRecord::Migration
       t.string :context
       t.integer :proficency
 
-      t.timestamps
     end
   end
 end
