@@ -13,7 +13,7 @@ class CreateUserSkills < ActiveRecord::Migration
     create_table :user_skills do |t|
       t.integer :user_id
       t.integer :skill_id 
-      t.integer :proficiency
+      t.integer :proficiency, :default => 0
   
     end
   end
