@@ -1,17 +1,13 @@
 class User < ActiveRecord::Base
-  has_many :user_skills, dependent: :destroy
-  has_many :skills, :through=> :user_skills
+  has_many :user_skills
+  has_many :skills, through: :user_skills
 
-  def proficiency_for(skill)
-    # self.skills.where()
-    users_skills_object = self.users_skills.where(skill_id: skill.id).first
-    users_skills_object.proficiency
+   def proficiency_for(skill)
+    self.skill_users.find_by_skill_id(skill.id).proficiency rescue 0
   end
 
-  def set_proficiency_for(skill, rating)
-    users_skills_object = self.users_skills.where(skill_id: skill.id).first
-    # p users_skills_object
-    users_skills_object.update_attributes(proficiency: rating)
+  def set_proficiency_for(skill, level)
+    self.skill_users.find_by_skill_id(skill.id).update_attributes(proficiency: level) rescue nil
   end
 
 end
