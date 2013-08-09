@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
-  has_many :user_skills
-  has_many :skills, through: :user_skills
+  has_many :proficiencies
+  has_many :skills, through: :proficiencies
 
-   def proficiency_for(skill)
-    self.skill_users.find_by_skill_id(skill.id).proficiency rescue 0
+  def proficiency_for(skill)
+    Proficiency.where(user_id: self.id, skill_id: skill.id).first.rating
   end
 
-  def set_proficiency_for(skill, level)
-    self.skill_users.find_by_skill_id(skill.id).update_attributes(proficiency: level) rescue nil
+  def set_proficiency_for(skill, rating)
+    self.skills << skill
+    proficiency = Proficiency.where(user_id: self.id, skill_id: skill.id).first
+    proficiency.update_attributes(rating: rating)
   end
-
 end

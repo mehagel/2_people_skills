@@ -1,12 +1,12 @@
 class Skill < ActiveRecord::Base
   
-  has_many :user_skills
-  has_many :users, through: :user_skills
+  has_many :proficiencies
+  has_many :users, through: :proficiencies
   validates :name, :context, uniqueness: true
 
-  
+
   def user_with_proficiency(rating)
-    self.skill_users.where(proficiency: rating).first.user
+    user_id = Proficiency.find_by_rating(rating).user_id
+    User.find(user_id)
   end
- 
 end
